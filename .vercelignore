@@ -1,0 +1,14 @@
+# 저장소에만 올린다 (배포에서는 빼기)
+CLAUDE.md
+README.md
+
+# 어디에도 올리지 않는다 (.gitignore 와 같음 — CLI 로 배포할 때도 빠지게)
+tools/
+진단/
+.claude/
+*_정리본.xlsx
+*_바꾼기록.xlsx
+
+# 저장소 설정 파일
+.gitignore
+.vercelignore

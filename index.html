@@ -1,0 +1,79 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>근태 정리기</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="style.css">
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>근태 정리기</h1>
+      <p class="sub">출퇴근 미스터리 해결기</p>
+    </div>
+    <p class="lock"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>넣은 파일은 이 컴퓨터를 떠나지 않습니다</p>
+  </header>
+
+  <p id="err" class="err" role="alert" hidden></p>
+
+  <section class="step">
+    <h2><span class="no">1</span>파일 넣기</h2>
+    <div id="drop" class="drop" tabindex="0" role="button" aria-label="정리할 엑셀 파일 고르기">
+      <strong>근태관리 엑셀을 여기에 끌어다 놓으세요</strong>
+      <span class="hint">또는 눌러서 고르기 · .xlsx / .xls / .csv · 첫 시트, 머리글 1줄</span>
+      <span class="stamp">IN 09:00 ─ OUT 18:00</span>
+      <input id="fileInput" type="file" accept=".xlsx,.xls,.csv" hidden>
+    </div>
+    <div class="actions sample">
+      <button type="button" class="btn alt" id="sampleBtn">샘플 근태 파일 넣기</button>
+      <span class="note">가상 직원 10명 · 2026년 9월 · 오류가 섞인 연습용 파일(data/근태관리.xlsx)</span>
+    </div>
+    <div id="fileBox" class="info" hidden><div id="fileInfo" class="kvs"></div></div>
+  </section>
+
+  <section class="step" id="rulesBox" hidden>
+    <h2><span class="no">2</span>처방</h2>
+    <div id="rulesMissing" hidden></div>
+    <div id="rulesList" hidden>
+      <p id="rulesHead" class="note"></p>
+      <div id="rulesProblems"></div>
+      <div class="tablebox"><table id="rulesTable"></table></div>
+    </div>
+    <div id="rulesPick" class="actions" hidden>
+      <button type="button" class="btn alt" id="rulesPickBtn"><span id="rulesPickLabel">처방 파일 고르기</span></button>
+      <input id="rulesInput" type="file" accept=".json,application/json" hidden>
+    </div>
+  </section>
+
+  <section class="step" id="runBox" hidden>
+    <h2><span class="no">3</span>정리</h2>
+    <div class="actions"><button type="button" class="btn" id="runBtn">규칙대로 정리</button><span class="note">처방에 있는 것만 고치고, 나머지는 _표시 칸에 까닭을 적습니다.</span></div>
+  </section>
+
+  <section class="step" id="resultBox" hidden>
+    <h2><span class="no">4</span>결과</h2>
+    <div class="stats" id="stats"></div>
+    <p class="note" id="idemNote"></p>
+    <div class="actions">
+      <button type="button" class="btn" id="dlClean">정리본 내려받기</button>
+      <button type="button" class="btn alt" id="dlLog">바꾼 기록 내려받기</button>
+      <span class="note" id="dlNote">엑셀(.xlsx) 파일이라 한글이 깨지지 않습니다.</span>
+    </div>
+    <details class="fold"><summary>처방별 건수</summary><div class="tablebox"><table id="perRule"></table></div></details>
+    <div class="tabs" role="tablist">
+      <button type="button" class="tab" role="tab" id="tabChanges" aria-selected="true">바꾼 값 · 지운 행</button>
+      <button type="button" class="tab" role="tab" id="tabFlags" aria-selected="false">표시한 행</button>
+    </div>
+    <div class="tablebox tall"><table id="detail"></table></div>
+  </section>
+
+  <section class="step" id="answerBox" hidden>
+    <h2><span class="no">5</span>정답과 대조</h2>
+    <p class="note">정답 파일은 이 사이트에 없습니다. 내 컴퓨터에서 골라 주세요. 고른 파일도 이 컴퓨터 밖으로 나가지 않습니다.</p>
+    <div class="actions"><button type="button" class="btn alt" id="answerBtn">정답 파일 고르기</button><input id="answerInput" type="file" accept=".csv,.xlsx,.xls" hidden></div>
+    <div id="answerResult" hidden></div>
+  </section>
+</div>
+
+<script src="lib/xlsx.full.min.js"></script>
+<script src="clean.js"></script>
+<script src="app.js"></script>
